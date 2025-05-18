@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="Zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>note</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/note.css">
+    <link rel="stylesheet" href="/header.css">
+    <link rel="stylesheet" href="/markdown++.css">
+    <link href="/logo.png" rel="icon">
+    <script src="/markdown.js"></script>
+    <script src="/index.js"></script>
+    <link rel="stylesheet" href="/editor.css">
+</head>
+<body>
+    <error id="error" class="hidden"></error>
+    <header>
+        <div id="header-container">
+            <img src="/note.png" alt="logo" id="logo" onclick="goHome()">
+            <div id="header-right-container">
+                <img src="/upload.svg" class="btn" id="upload-btn" onclick="addNote()">
+            </div>
+        </div>
+    </header>
+    <main>
+        <null></null>
+        <main-container>
+            <div id="note-editor">
+                标题
+                <input id="title" autocomplete="off">
+                标签(用逗号分割)
+                <input id="tags" autocomplete="off">
+                内容
+                <textarea id="content" autocomplete="off"></textarea>
+            </div>
+            <div id="note-show"></div>
+        </main-container>
+    </main>
+    <script>
+        const titleInput = document.querySelector('#title');
+        const tagsInput = document.querySelector('#tags');
+        const contentTextarea = document.querySelector('#content');
+        async function addNote() {
+            const title = encodeURIComponent(titleInput.value);
+            const tags = encodeURIComponent(tagsInput.value);
+            const content = encodeURIComponent(contentTextarea.value);
+            const res = await safeFetch(`./api/addnote?title=${title}&tags=${tags}&markdown=${content}`);
+            if (res.ok) {
+                window.location.href = `./note?id=${res.data.note}`;
+            }
+            else {
+                showError(JSON.stringify(res));
+            }
+        }
+
+        function handleInputChange() {
+            const title = titleInput.value.trim();
+            const content = contentTextarea.value.trim();
+            const tags = tagsInput.value.split(',').map(tag => tag.trim());
+
+            document.getElementById("note-show").innerHTML = createNote({title:title,markdown:content,tags:tags});
+        }
+
+        titleInput.addEventListener('input', handleInputChange);
+        contentTextarea.addEventListener('input', handleInputChange);
+        tagsInput.addEventListener('input', handleInputChange);
+        function autoResizeTextarea() {
+            contentTextarea.style.height = 'auto';
+            contentTextarea.style.height = (contentTextarea.scrollHeight) + 'px';
+        }
+
+        autoResizeTextarea();
+
+        contentTextarea.addEventListener('input', autoResizeTextarea);
+    </script>
+</body>
+</html>

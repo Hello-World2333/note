@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>note</title>
     <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/note.css">
+    <link rel="stylesheet" href="/header.css">
     <link rel="stylesheet" href="/markdown++.css">
     <link href="/logo.png" rel="icon">
     <script src="/markdown.js"></script>
@@ -15,9 +16,12 @@
     <header>
         <div id="header-container">
             <img src="/note.png" alt="logo" id="logo" onclick="goHome()">
-            <div id="search-container">
-                <input id="search" onkeypress="handleKeyPress(event)"></input>
-                <img src="/search.svg" id="search-btn" onclick="tosearch()">
+            <div id="header-right-container">
+                <div id="search-container">
+                    <input id="search" autocomplete="off" onkeypress="handleKeyPress(event)">
+                    <img src="/search.svg" id="search-btn" class="btn" onclick="tosearch()">
+                </div>
+                <img src="/add.svg" id="add-btn" class="btn" onclick="toAddNote()">
             </div>
         </div>
     </header>
@@ -31,14 +35,9 @@
             document.getElementById("search").value=s;
             const res = await safeFetch(`./api/search?s=${s}`);
             if (res.ok) {
-                if(!res.data){
-                    res.data.forEach(note => {
-                        document.getElementById("notes-container").innerHTML += createNoteCard(note, note.id)
-                    });
-                }
-                else{
-                    showError("无结果")
-                }
+                res.data.forEach(note => {
+                    document.getElementById("notes-container").innerHTML += createNoteCard(note, note.id)
+                });
             }
         }
         search()

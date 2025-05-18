@@ -6,16 +6,6 @@ function showError(err) {
         errelm.classList.add("hidden");
     }, 3000);
 }
-
-function goHome() {
-    window.location.href = "/";
-}
-
-function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-        tosearch();
-    }
-}
 async function safeFetch(url, options) {
     try {
         const res = await fetch(url, options);
@@ -33,17 +23,37 @@ async function safeFetch(url, options) {
     }
 }
 
-async function tosearch() {
-    const key = document.getElementById("search").value;
+async function tosearch(s = null) {
+    let key;
+    if(s) {
+        key = s;
+    }
+    else {
+        key = document.getElementById("search").value;
+    }
     if(key) {
         location.href = `/search?s=${key}`;
     }
 }
 
+function goHome() {
+    window.location.href = "/";
+}
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        tosearch();
+    }
+}
+
+function toAddNote() {
+    window.location.href = "/addNote";
+}
+
 function createNoteCard(note,id) {
     let tagText=''
     note.tags.forEach(tag => {
-        tagText+=`<tag>${tag}</tag>`
+        tagText+=`<tag onclick="tosearch('${tag}')">${tag}</tag>`
     });
     return `<notecard onclick="openNote(${id})">
         <h1>${note.title}</h1>
@@ -53,10 +63,10 @@ function createNoteCard(note,id) {
     </notecard>`;
 }
 
-function createNote(note,id) {
+function createNote(note) {
     let tagText=''
     note.tags.forEach(tag => {
-        tagText+=`<tag>${tag}</tag>`
+        tagText+=`<tag onclick="tosearch('${tag}')">${tag}</tag>`
     });
     return `<note>
         <h1>${note.title}</h1>

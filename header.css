@@ -19,12 +19,25 @@ header {
 
 #logo {
     height: 80%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    filter: invert(0.1);
+}
+
+#logo:hover {
+    filter: invert(0);
+}
+
+#header-right-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 #search-container {
     display: flex;
     height: 80%;
-    width: max(100px, 30vw);
+    width: max(200px, 30vw);
     background-color: #3d3d3d;
     border-radius: 10px;
     align-items: center;
@@ -41,13 +54,14 @@ header {
     font-size: max(20px, 3.5vh);
 }
 
-#search-btn {
+.btn {
     margin-left: 1%;
     height: 80%;
     transition: all 0.2s ease;
     filter: invert(0.8);
+    cursor: pointer;
 }
 
-#search-btn:hover {
+.btn:hover {
     filter: invert(1);
 }

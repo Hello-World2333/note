@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>note</title>
     <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/note.css">
+    <link rel="stylesheet" href="/header.css">
     <link rel="stylesheet" href="/markdown++.css">
     <link href="/logo.png" rel="icon">
     <script src="/markdown.js"></script>
@@ -15,9 +16,13 @@
     <header>
         <div id="header-container">
             <img src="/note.png" alt="logo" id="logo" onclick="goHome()">
-            <div id="search-container">
-                <input id="search" onkeypress="handleKeyPress(event)"></input>
-                <img src="/search.svg" id="search-btn" onclick="tosearch()">
+            <div id="header-right-container">
+                <div id="search-container">
+                    <input id="search" autocomplete="off" onkeypress="handleKeyPress(event)">
+                    <img src="/search.svg" id="search-btn" class="btn" onclick="tosearch()">
+                </div>
+                <img src="/delete.svg" id="delete-btn" class="btn" onclick="deleteNote()">
+                <img src="/add.svg" id="add-btn" class="btn" onclick="toAddNote()">
             </div>
         </div>
     </header>
@@ -27,10 +32,16 @@
     </main>
     <script>
         const id=new URLSearchParams(window.location.search).get("id");
+        async function deleteNote() {
+            const res = await safeFetch(`./api/delete?id=${id}`);
+            if (res.ok) {
+                window.location.href = `./`;
+            }
+        }
         async function getNote() {
             const res = await safeFetch(`./api/getnote?id=${id}`);
             if (res.ok) {
-                document.getElementById("note-container").innerHTML += createNote(res.data, id)
+                document.getElementById("note-container").innerHTML += createNote(res.data)
             }
         }
         getNote()

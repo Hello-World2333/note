@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/api/getnote',(req,res) =>{
+app.get('/api/getnote', (req, res) => {
     fs.readFile('notes.json', 'utf-8', (err, data) => {
         if (err) {
             res.status(500).json(err);
@@ -24,7 +24,7 @@ app.get('/api/getnote',(req,res) =>{
     });
 })
 
-app.get('/api/search',(req,res) => {
+app.get('/api/search', (req, res) => {
     fs.readFile('notes.json', 'utf-8', (err, data) => {
         if (err) {
             res.status(500).json(err);
@@ -33,7 +33,7 @@ app.get('/api/search',(req,res) => {
             let notes = JSON.parse(data);
 
             const results = notes.map((note, index) => {
-                const isMatch = 
+                const isMatch =
                     note.title.toLowerCase().includes(key.toLowerCase()) ||
                     note.markdown.toLowerCase().includes(key.toLowerCase()) ||
                     note.tags.some(tag => tag.toLowerCase().includes(key.toLowerCase()));
@@ -52,6 +52,68 @@ app.get('/api/search',(req,res) => {
         }
     });
 })
+
+app.get('/api/addnote', (req, res) => {
+    let { title, markdown, tags } = req.query;
+    title = decodeURIComponent(title);
+    markdown = decodeURIComponent(markdown);
+    tags = decodeURIComponent(tags);
+
+    if (!title || !markdown) {
+        return res.status(400).json({ error: '缺少必要参数：标题或内容' });
+    }
+
+    fs.readFile('notes.json', 'utf-8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: '读取笔记文件失败' });
+        }
+
+        let notes = JSON.parse(data);
+        const newNote = {
+            title,
+            markdown,
+            tags: tags ? tags.split(',') : [],
+        };
+
+        notes.push(newNote);
+
+        fs.writeFile('notes.json', JSON.stringify(notes, null, 2), 'utf-8', (err) => {
+            if (err) {
+                return res.status(500).json({ error: '写入笔记文件失败' });
+            }
+
+            res.json({ message: '笔记添加成功', note: notes.length - 1 });
+        });
+    });
+});
+
+app.get('/api/delete', (req, res) => {
+    const id = parseInt(req.query.id, 10);
+    if (isNaN(id)) {
+        return res.status(400).json({ error: '无效的笔记 ID' });
+    }
+
+    fs.readFile('notes.json', 'utf-8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: '读取笔记文件失败' });
+        }
+
+        let notes = JSON.parse(data);
+        if (id < 0 || id >= notes.length) {
+            return res.status(404).json({ error: '笔记不存在' });
+        }
+
+        notes.splice(id, 1);
+
+        fs.writeFile('notes.json', JSON.stringify(notes, null, 2), 'utf-8', (err) => {
+            if (err) {
+                return res.status(500).json({ error: '写入笔记文件失败' });
+            }
+
+            res.json({ message: '笔记删除成功' });
+        });
+    });
+});
 
 app.use((req, res) => {
     const pathWithoutQuery = decodeURIComponent(req.path.split('?')[0]);
