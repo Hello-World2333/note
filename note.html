@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="Zh-cn">
-
 <head>
     <meta charset="UTF-8">
     <title>note</title>
@@ -11,7 +10,6 @@
     <script src="/markdown.js"></script>
     <script src="/index.js"></script>
 </head>
-
 <body>
     <error id="error" class="hidden"></error>
     <header>
@@ -25,19 +23,17 @@
     </header>
     <main>
         <null></null>
-        <div id="notes-container"></div>
+        <div id="note-container"></div>
     </main>
     <script>
-        async function getNotes() {
-            const res = await safeFetch("./notes.json");
+        const id=new URLSearchParams(window.location.search).get("id");
+        async function getNote() {
+            const res = await safeFetch(`./api/getnote?id=${id}`);
             if (res.ok) {
-                for (let i = 0; i < res.data.length; i++) {
-                    document.getElementById("notes-container").innerHTML += createNoteCard(res.data[i], i)
-                }
+                document.getElementById("note-container").innerHTML += createNote(res.data, id)
             }
         }
-        getNotes()
+        getNote()
     </script>
 </body>
-
 </html>

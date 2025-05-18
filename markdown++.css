@@ -1,0 +1,15 @@
+pre {
+    background-color: #101010;
+    border: 1px solid #242424;
+    padding: 1%;
+    overflow-x: auto;
+    font-size: 120%;
+    border-radius: 4px;
+    margin: 1% 0;
+}
+
+code {
+    background-color: #1f1f1f;
+    padding: 2px 4px;
+    border-radius: 3px;
+}

@@ -7,6 +7,15 @@ function showError(err) {
     }, 3000);
 }
 
+function goHome() {
+    window.location.href = "/";
+}
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        tosearch();
+    }
+}
 async function safeFetch(url, options) {
     try {
         const res = await fetch(url, options);
@@ -24,7 +33,27 @@ async function safeFetch(url, options) {
     }
 }
 
-function createNote(note) {
+async function tosearch() {
+    const key = document.getElementById("search").value;
+    if(key) {
+        location.href = `/search?s=${key}`;
+    }
+}
+
+function createNoteCard(note,id) {
+    let tagText=''
+    note.tags.forEach(tag => {
+        tagText+=`<tag>${tag}</tag>`
+    });
+    return `<notecard onclick="openNote(${id})">
+        <h1>${note.title}</h1>
+        <tags>${tagText}</tags>
+        <hr>
+        ${marked.parse(note.markdown)}
+    </notecard>`;
+}
+
+function createNote(note,id) {
     let tagText=''
     note.tags.forEach(tag => {
         tagText+=`<tag>${tag}</tag>`
@@ -37,13 +66,6 @@ function createNote(note) {
     </note>`;
 }
 
-async function getData() {
-    const res = await safeFetch("./notes.json");
-    if (res.ok) {
-        res.data.forEach(note => {
-            document.getElementById("notes-container").innerHTML += createNote(note)
-        });
-    }
+function openNote(id) {
+    location.href = `./note?id=${id}`;
 }
-
-getData()

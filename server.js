@@ -13,6 +13,46 @@ app.get('/', (req, res) => {
     });
 });
 
+app.get('/api/getnote',(req,res) =>{
+    fs.readFile('notes.json', 'utf-8', (err, data) => {
+        if (err) {
+            res.status(500).json(err);
+        } else {
+            data = JSON.parse(data);
+            res.json(data[req.query.id]);
+        }
+    });
+})
+
+app.get('/api/search',(req,res) => {
+    fs.readFile('notes.json', 'utf-8', (err, data) => {
+        if (err) {
+            res.status(500).json(err);
+        } else {
+            const key = req.query.s;
+            let notes = JSON.parse(data);
+
+            const results = notes.map((note, index) => {
+                const isMatch = 
+                    note.title.toLowerCase().includes(key.toLowerCase()) ||
+                    note.markdown.toLowerCase().includes(key.toLowerCase()) ||
+                    note.tags.some(tag => tag.toLowerCase().includes(key.toLowerCase()));
+
+                if (isMatch) {
+                    return {
+                        id: index,
+                        title: note.title,
+                        markdown: note.markdown,
+                        tags: note.tags
+                    };
+                }
+            }).filter(note => note !== undefined);
+
+            res.json(results);
+        }
+    });
+})
+
 app.use((req, res) => {
     const pathWithoutQuery = decodeURIComponent(req.path.split('?')[0]);
     let filePath = `./${pathWithoutQuery}`;

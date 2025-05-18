@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="Zh-cn">
-
 <head>
     <meta charset="UTF-8">
     <title>note</title>
@@ -11,7 +10,6 @@
     <script src="/markdown.js"></script>
     <script src="/index.js"></script>
 </head>
-
 <body>
     <error id="error" class="hidden"></error>
     <header>
@@ -28,16 +26,22 @@
         <div id="notes-container"></div>
     </main>
     <script>
-        async function getNotes() {
-            const res = await safeFetch("./notes.json");
+        const s=new URLSearchParams(window.location.search).get("s");
+        async function search() {
+            document.getElementById("search").value=s;
+            const res = await safeFetch(`./api/search?s=${s}`);
             if (res.ok) {
-                for (let i = 0; i < res.data.length; i++) {
-                    document.getElementById("notes-container").innerHTML += createNoteCard(res.data[i], i)
+                if(!res.data){
+                    res.data.forEach(note => {
+                        document.getElementById("notes-container").innerHTML += createNoteCard(note, note.id)
+                    });
+                }
+                else{
+                    showError("无结果")
                 }
             }
         }
-        getNotes()
+        search()
     </script>
 </body>
-
 </html>

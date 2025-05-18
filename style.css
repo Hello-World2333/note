@@ -43,15 +43,37 @@ error.hidden {
 
 #notes-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     width: 100%;
     height: auto;
 }
 
-note {
-    position: relative;
+#note-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+note,notecard{
     width: 90%;
+    height: auto;
+    padding: 2%;
+    background-color: #22222292;
+    backdrop-filter: blur(10px);
+    display: block;
+    border-radius: 20px;
+    margin: 2vh 1vw;
+}
+
+notecard{
+    position: relative;
+    width: auto;
+    min-width: 20vw;
     height: 30vh;
     padding: 2%;
     top: 0;
@@ -61,18 +83,18 @@ note {
     backdrop-filter: blur(10px);
     display: block;
     border-radius: 20px;
-    margin-bottom: 3vh;
+    margin: 2vh 1vw;
     box-shadow: #999999 5px 5px 0px;
     transition: all 0.2s ease;
 }
 
-note:hover {
+notecard:hover {
     top: -2px;
     left: -2px;
     box-shadow: #efefef 7px 7px 0px;
 }
 
-note:active  {
+notecard:active  {
     top: 2px;
     left: 2px;
     box-shadow: #3f3f3f 3px 3px 0px;
