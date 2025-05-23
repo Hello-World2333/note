@@ -1,9 +1,454 @@
 [
   {
-    "title": "markdown解释器测试",
-    "markdown": "# 一级标题\n## 二级标题\n### 三级\n#### 四级\n##### 五级\n###### 六级\n正常文本~~|||||||划掉|||||||~~_斜体_**粗体**  \n强制换行  \n- 无序列表\n- 1\n  - 子项目\n1. 有序列表\n2. 2\n3. 3  \n\n[链接](https://www.baidu.com \"百度\") \n \n> 引用  \n\n行`行内代码`行  \n```\n代码\n```\n---\n分割线",
+    "title": "前端开发概述",
+    "markdown": "## 前端开发概述\n\n前端开发是指构建网站或Web应用程序用户界面的过程，主要涉及HTML、CSS和JavaScript。前端开发的目标是确保用户能够高效、直观地与网站交互。\n\n### 核心技术\n1. **HTML**：超文本标记语言，用于定义网页的结构。\n2. **CSS**：层叠样式表，用于设计网页的布局和外观。\n3. **JavaScript**：脚本语言，用于实现网页的动态功能和交互。\n\n### 现代前端工具\n现代前端开发通常使用框架和工具（如React、Vue、Angular）来提高效率。此外，构建工具（如Webpack、Vite）和包管理器（如npm、yarn）也是必备技能。",
     "tags": [
-      "markdown"
-    ]
+      "前端基础",
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "id": "80cc513f-7716-4e97-8e4d-428e3da91cb4"
+  },
+  {
+    "title": "异步编程与Promise",
+    "markdown": "## 异步编程与Promise\n\nJavaScript是单线程语言，但通过异步编程可以实现非阻塞操作。常见的异步模式包括回调函数、Promise和async/await。\n\n### Promise的基本用法\nPromise是ES6引入的异步编程解决方案，代表一个未来完成的操作。它有三种状态：pending（进行中）、fulfilled（已成功）、rejected（已失败）。\n\n```javascript\nconst promise = new Promise((resolve, reject) => {\n  setTimeout(() => resolve('成功'), 1000);\n});\n\npromise.then(result => console.log(result));\n```\n\n### async/await\nasync/await是ES2017引入的语法糖，让异步代码看起来像同步代码，提高可读性。\n\n```javascript\nasync function fetchData() {\n  const response = await fetch('https://api.example.com/data');\n  const data = await response.json();\n  console.log(data);\n}\n```",
+    "tags": [
+      "JavaScript",
+      "异步编程",
+      "Promise",
+      "async/await"
+    ],
+    "id": "124cd8e7-fcdd-471a-b49b-7ff0dc79b22f"
+  },
+  {
+    "title": "HTTP状态码详解",
+    "markdown": "## HTTP状态码详解\n\nHTTP状态码是服务器对客户端请求的响应结果，分为五类：\n\n### 1xx（信息性状态码）\n表示请求已被接收，继续处理。例如：\n- **100 Continue**：客户端应继续发送请求。\n\n### 2xx（成功状态码）\n表示请求已成功处理。例如：\n- **200 OK**：请求成功。\n- **201 Created**：资源已创建。\n\n### 3xx（重定向状态码）\n表示需要进一步操作以完成请求。例如：\n- **301 Moved Permanently**：资源已永久移动。\n- **302 Found**：资源临时移动。\n\n### 4xx（客户端错误状态码）\n表示客户端请求有误。例如：\n- **400 Bad Request**：请求无效。\n- **404 Not Found**：资源未找到。\n\n### 5xx（服务器错误状态码）\n表示服务器处理请求时出错。例如：\n- **500 Internal Server Error**：服务器内部错误。\n- **503 Service Unavailable**：服务不可用。",
+    "tags": [
+      "HTTP",
+      "网络基础",
+      "状态码"
+    ],
+    "id": "1d53c6e9-77ff-41f2-999f-aa924f019242"
+  },
+  {
+    "title": "API、URL与URI的区别",
+    "markdown": "## API、URL与URI的区别\n\n### API（应用程序接口）\nAPI是一组预定义的规则，允许不同软件系统之间通信。例如，REST API通过HTTP请求实现数据交互。\n\n### URL（统一资源定位符）\nURL是互联网上资源的地址，包含协议、域名、路径等。例如：\n`https://www.example.com/path/to/resource`\n\n### URI（统一资源标识符）\nURI是标识资源的字符串，可以是URL或URN（统一资源名称）。URL是URI的子集。\n\n### 关键区别\n- **URL**：定位资源的具体位置。\n- **URI**：标识资源，不一定是地址。\n- **API**：定义如何访问资源的规则。",
+    "tags": [
+      "网络基础",
+      "API",
+      "URL",
+      "URI"
+    ],
+    "id": "f9905670-da84-446c-a330-94bd98a404cb"
+  },
+  {
+    "title": "Fetch API的使用方法",
+    "markdown": "## Fetch API的使用方法\n\nFetch API是现代浏览器提供的用于发送HTTP请求的接口，比传统的XMLHttpRequest更简洁。\n\n### 基本用法\n```javascript\nfetch('https://api.example.com/data')\n  .then(response => response.json())\n  .then(data => console.log(data))\n  .catch(error => console.error('Error:', error));\n```\n\n### 请求配置\nFetch支持自定义请求方法、头部和请求体：\n```javascript\nfetch('https://api.example.com/data', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify({ key: 'value' })\n});\n```\n\n### 错误处理\nFetch不会直接拒绝HTTP错误状态（如404），需手动检查：\n```javascript\nfetch(url)\n  .then(response => {\n    if (!response.ok) throw new Error('Network response was not ok');\n    return response.json();\n  });\n```",
+    "tags": [
+      "JavaScript",
+      "Fetch API",
+      "HTTP请求"
+    ],
+    "id": "12045757-8e75-4c4a-a613-9798afc7f3b3"
+  },
+  {
+    "title": "HTTP请求类型：GET与POST",
+    "markdown": "## HTTP请求类型：GET与POST\n\n### GET请求\nGET用于从服务器获取数据，参数通过URL传递：\n```javascript\nfetch('https://api.example.com/data?id=123');\n```\n\n### POST请求\nPOST用于向服务器提交数据，参数通过请求体传递：\n```javascript\nfetch('https://api.example.com/data', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify({ id: 123 })\n});\n```\n\n### 其他请求类型\n- **PUT**：更新资源。\n- **DELETE**：删除资源。\n- **PATCH**：部分更新资源。",
+    "tags": [
+      "HTTP",
+      "GET",
+      "POST",
+      "请求方法"
+    ],
+    "id": "1c45e255-391b-448b-af55-ecacb211447f"
+  },
+  {
+    "title": "POST请求如何传递参数",
+    "markdown": "## POST请求如何传递参数\n\nPOST请求的参数通常通过请求体（body）发送，支持多种格式：\n\n### 1. JSON格式\n最常用的格式，需设置`Content-Type: application/json`：\n```javascript\nfetch(url, {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify({ key: 'value' })\n});\n```\n\n### 2. FormData格式\n用于文件上传或表单提交：\n```javascript\nconst formData = new FormData();\nformData.append('key', 'value');\n\nfetch(url, {\n  method: 'POST',\n  body: formData\n});\n```\n\n### 3. URL编码格式\n传统表单提交格式：\n```javascript\nfetch(url, {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },\n  body: 'key=value&anotherKey=anotherValue'\n});\n```",
+    "tags": [
+      "HTTP",
+      "POST",
+      "参数传递"
+    ],
+    "id": "bdf628da-dd15-4022-a74f-dd312cedc708"
+  },
+  {
+    "title": "跨域资源共享（CORS）",
+    "markdown": "## 跨域资源共享（CORS）\n\nCORS是一种机制，允许网页从不同域的服务器请求资源。\n\n### 简单请求与预检请求\n- **简单请求**：满足特定条件（如GET/HEAD/POST，且Content-Type为`text/plain`、`application/x-www-form-urlencoded`或`multipart/form-data`）。\n- **预检请求**：非简单请求会先发送OPTIONS请求检查权限。\n\n### 服务器配置\n服务器需设置响应头以允许跨域：\n```\nAccess-Control-Allow-Origin: *\nAccess-Control-Allow-Methods: GET, POST, PUT\nAccess-Control-Allow-Headers: Content-Type\n```\n\n### 前端处理\n前端可通过代理或JSONP（已过时）绕过CORS限制。",
+    "tags": [
+      "HTTP",
+      "CORS",
+      "跨域"
+    ],
+    "id": "529f7cd6-5673-4243-b944-b12cc40f04fb"
+  },
+  {
+    "title": "前端路由与History API",
+    "markdown": "## 前端路由与History API\n\n前端路由允许在不刷新页面的情况下切换视图，常用于单页应用（SPA）。\n\n### History API\n通过`window.history`操作浏览器历史记录：\n- **pushState()**：添加历史记录。\n- **replaceState()**：替换当前历史记录。\n- **popstate事件**：监听历史记录变化。\n\n### 实现简单路由\n```javascript\nwindow.addEventListener('popstate', () => {\n  const path = window.location.pathname;\n  renderView(path);\n});\n\nfunction navigate(path) {\n  window.history.pushState({}, '', path);\n  renderView(path);\n}\n```",
+    "tags": [
+      "前端路由",
+      "History API",
+      "SPA"
+    ],
+    "id": "b16f3cbf-c9d4-4f35-98cc-499b347a2e86"
+  },
+  {
+    "title": "模块化开发与ES6模块",
+    "markdown": "## 模块化开发与ES6模块\n\n模块化是将代码拆分为独立模块的开发方式，提高可维护性和复用性。\n\n### ES6模块语法\n- **导出模块**：\n```javascript\nexport const name = 'Module';\nexport function hello() { console.log('Hello'); }\n```\n- **导入模块**：\n```javascript\nimport { name, hello } from './module.js';\n```\n\n### 默认导出\n```javascript\nexport default function() { console.log('Default'); };\nimport myFunction from './module.js';\n```\n\n### 动态导入\n按需加载模块：\n```javascript\nimport('./module.js').then(module => {\n  module.hello();\n});\n```",
+    "tags": [
+      "JavaScript",
+      "模块化",
+      "ES6"
+    ],
+    "id": "a6f44b64-7d55-4708-ab9c-3ba6b14c3a91"
+  },
+  {
+    "title": "CSS Flexbox布局详解",
+    "markdown": "## CSS Flexbox布局详解\n\nFlexbox是一种一维布局模型，适合分配容器内项目的空间和对齐方式。\n\n### 容器属性\n- **display: flex**：启用Flex布局。\n- **flex-direction**：定义主轴方向（row/column）。\n- **justify-content**：主轴对齐方式。\n- **align-items**：交叉轴对齐方式。\n\n### 项目属性\n- **flex-grow**：定义项目的放大比例。\n- **flex-shrink**：定义项目的缩小比例。\n- **flex-basis**：定义项目的初始大小。\n\n### 示例\n```css\n.container {\n  display: flex;\n  justify-content: space-between;\n}\n.item {\n  flex: 1;\n}\n```",
+    "tags": [
+      "CSS",
+      "Flexbox",
+      "布局"
+    ],
+    "id": "570ff7c9-56c2-43b5-9617-d3092f3e269e"
+  },
+  {
+    "title": "CSS Grid布局入门",
+    "markdown": "## CSS Grid布局入门\n\nGrid是二维布局系统，比Flexbox更适合复杂布局。\n\n### 基本概念\n- **网格容器**：`display: grid`。\n- **网格线**：划分网格的线条。\n- **网格轨道**：行或列。\n- **网格单元格**：行和列的交叉区域。\n\n### 容器属性\n```css\n.container {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr;\n  grid-gap: 10px;\n}\n```\n\n### 项目属性\n```css\n.item {\n  grid-column: 1 / 3;\n  grid-row: 1;\n}\n```",
+    "tags": [
+      "CSS",
+      "Grid",
+      "布局"
+    ],
+    "id": "e449def0-605b-4ff3-afe9-0b97f6521b2e"
+  },
+  {
+    "title": "响应式设计原则",
+    "markdown": "## 响应式设计原则\n\n响应式设计使网站能适应不同设备屏幕尺寸。\n\n### 关键技术\n1. **媒体查询**：\n```css\n@media (max-width: 768px) {\n  .container { flex-direction: column; }\n}\n```\n2. **流动布局**：使用百分比或fr单位。\n3. **弹性图片**：`max-width: 100%`。\n\n### 移动优先\n先设计移动端布局，再通过媒体查询扩展到大屏幕。\n\n### 视口设置\nHTML中需添加：\n```html\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n```",
+    "tags": [
+      "CSS",
+      "响应式设计",
+      "媒体查询"
+    ],
+    "id": "196d8b9e-e801-4369-bcbe-666ab1a36e15"
+  },
+  {
+    "title": "JavaScript闭包原理",
+    "markdown": "## JavaScript闭包原理\n\n闭包是指函数能够访问并记住其词法作用域，即使函数在作用域外执行。\n\n### 闭包示例\n```javascript\nfunction outer() {\n  const name = 'Alice';\n  function inner() {\n    console.log(name);\n  }\n  return inner;\n}\n\nconst myFunc = outer();\nmyFunc(); // 输出 'Alice'\n```\n\n### 闭包的应用\n1. **数据私有化**：模拟私有变量。\n2. **函数工厂**：创建具有特定配置的函数。\n3. **事件处理**：保留上下文信息。\n\n### 内存管理\n闭包可能导致内存泄漏，需注意解除引用。",
+    "tags": [
+      "JavaScript",
+      "闭包",
+      "作用域"
+    ],
+    "id": "3fc589ff-4e97-4847-bc87-2eee138e6ce2"
+  },
+  {
+    "title": "this关键字的绑定规则",
+    "markdown": "## this关键字的绑定规则\n\nJavaScript中`this`的值取决于函数的调用方式。\n\n### 绑定规则\n1. **默认绑定**：全局对象（严格模式下为undefined）。\n2. **隐式绑定**：通过对象调用时绑定到该对象。\n3. **显式绑定**：通过`call`、`apply`或`bind`指定。\n4. **new绑定**：构造函数中绑定到新创建的对象。\n\n### 示例\n```javascript\nconst obj = {\n  name: 'Alice',\n  greet: function() { console.log(this.name); }\n};\n\nobj.greet(); // 隐式绑定\nconst greet = obj.greet.bind(obj); // 显式绑定\n```",
+    "tags": [
+      "JavaScript",
+      "this",
+      "上下文"
+    ],
+    "id": "c1a19d0d-14db-4970-885a-3641ffadfb6b"
+  },
+  {
+    "title": "事件循环与异步机制",
+    "markdown": "## 事件循环与异步机制\n\nJavaScript通过事件循环实现非阻塞异步操作。\n\n### 调用栈与任务队列\n- **调用栈**：执行同步代码。\n- **任务队列**：存放异步回调（宏任务和微任务）。\n\n### 执行顺序\n1. 执行同步代码。\n2. 清空微任务队列（如Promise回调）。\n3. 执行一个宏任务（如setTimeout回调）。\n4. 重复步骤2-3。\n\n### 示例\n```javascript\nconsole.log('1');\nsetTimeout(() => console.log('2'), 0);\nPromise.resolve().then(() => console.log('3'));\nconsole.log('4');\n// 输出顺序：1, 4, 3, 2\n```",
+    "tags": [
+      "JavaScript",
+      "事件循环",
+      "异步"
+    ],
+    "id": "573128f2-db95-4dd0-b385-d9f3e50bbe90"
+  },
+  {
+    "title": "原型与原型链",
+    "markdown": "## 原型与原型链\n\nJavaScript通过原型实现继承。\n\n### 原型对象\n每个函数都有`prototype`属性，实例通过`__proto__`访问原型。\n\n### 原型链\n访问属性时，JavaScript会沿原型链向上查找：\n```javascript\nfunction Person(name) {\n  this.name = name;\n}\nPerson.prototype.sayHello = function() {\n  console.log('Hello, ' + this.name);\n};\n\nconst alice = new Person('Alice');\nalice.sayHello(); // 通过原型链访问\n```\n\n### 现代继承语法\nES6的`class`是原型继承的语法糖：\n```javascript\nclass Person {\n  constructor(name) { this.name = name; }\n  sayHello() { console.log('Hello, ' + this.name); }\n}\n```",
+    "tags": [
+      "JavaScript",
+      "原型",
+      "继承"
+    ],
+    "id": "98f85610-7aa2-4cbd-ac85-13d0bf5bfa33"
+  },
+  {
+    "title": "ES6常用新特性",
+    "markdown": "## ES6常用新特性\n\nES6（ECMAScript 2015）是JavaScript的重大更新。\n\n### 主要特性\n1. **let/const**：块级作用域变量声明。\n2. **箭头函数**：`() => {}`，自动绑定`this`。\n3. **模板字符串**：`` `Hello, ${name}` ``。\n4. **解构赋值**：\n```javascript\nconst { name, age } = person;\n```\n5. **默认参数**：\n```javascript\nfunction greet(name = 'Guest') {}\n```\n6. **展开运算符**：\n```javascript\nconst arr = [...arr1, ...arr2];\n```",
+    "tags": [
+      "JavaScript",
+      "ES6",
+      "新特性"
+    ],
+    "id": "332ee393-f06c-445a-ab66-b17b708390ab"
+  },
+  {
+    "title": "TypeScript基础",
+    "markdown": "## TypeScript基础\n\nTypeScript是JavaScript的超集，添加了静态类型系统。\n\n### 基本类型\n```typescript\nlet name: string = 'Alice';\nlet age: number = 30;\nlet isActive: boolean = true;\n```\n\n### 接口\n定义对象结构：\n```typescript\ninterface User {\n  name: string;\n  age?: number; // 可选属性\n}\n```\n\n### 泛型\n创建可重用组件：\n```typescript\nfunction identity<T>(arg: T): T {\n  return arg;\n}\n```\n\n### 编译\n通过`tsc`编译器将TypeScript转换为JavaScript。",
+    "tags": [
+      "TypeScript",
+      "静态类型",
+      "前端工程化"
+    ],
+    "id": "bd85f50a-f014-4638-b8a3-653c2e6f5730"
+  },
+  {
+    "title": "React核心概念",
+    "markdown": "## React核心概念\n\nReact是用于构建用户界面的JavaScript库。\n\n### 组件\nReact应用由组件构成，分为函数组件和类组件：\n```javascript\nfunction Welcome(props) {\n  return <h1>Hello, {props.name}</h1>;\n}\n```\n\n### JSX\nJavaScript的语法扩展，用于描述UI：\n```javascript\nconst element = <div className=\"app\">Content</div>;\n```\n\n### 状态管理\n使用`useState`Hook管理组件状态：\n```javascript\nconst [count, setCount] = useState(0);\n```\n\n### 生命周期\n类组件可通过生命周期方法（如`componentDidMount`）执行副作用。",
+    "tags": [
+      "React",
+      "前端框架",
+      "组件化"
+    ],
+    "id": "7cbce442-5c32-4ad3-9c55-8650cc20a293"
+  },
+  {
+    "title": "Vue.js入门",
+    "markdown": "## Vue.js入门\n\nVue是渐进式JavaScript框架，核心是响应式数据绑定。\n\n### 基本结构\n```javascript\nnew Vue({\n  el: '#app',\n  data: { message: 'Hello Vue!' },\n  methods: {\n    greet() { console.log(this.message); }\n  }\n});\n```\n\n### 模板语法\n```html\n<div id=\"app\">\n  <p>{{ message }}</p>\n  <button @click=\"greet\">Greet</button>\n</div>\n```\n\n### 指令\n- **v-bind**：绑定属性。\n- **v-model**：双向数据绑定。\n- **v-for**：列表渲染。\n\n### 组件系统\n```javascript\nVue.component('my-component', {\n  template: '<div>A custom component!</div>'\n});\n```",
+    "tags": [
+      "Vue",
+      "前端框架",
+      "响应式"
+    ],
+    "id": "65ea71b6-d8b3-480b-8314-d6b96ecfd5a4"
+  },
+  {
+    "title": "前端性能优化技巧",
+    "markdown": "## 前端性能优化技巧\n\n### 加载优化\n1. **代码分割**：使用动态导入按需加载。\n2. **懒加载**：延迟加载非关键资源。\n3. **预加载**：`<link rel=\"preload\">`提前获取资源。\n\n### 渲染优化\n1. **虚拟DOM**：React/Vue等框架减少DOM操作。\n2. **防抖节流**：限制高频事件处理。\n3. **CSS优化**：避免复杂选择器，使用transform代替top/left。\n\n### 缓存策略\n1. **HTTP缓存**：合理设置Cache-Control。\n2. **Service Worker**：实现离线缓存。\n3. **本地存储**：使用localStorage缓存数据。",
+    "tags": [
+      "性能优化",
+      "前端工程"
+    ],
+    "id": "9fe41e32-a1dc-40f1-b3a6-4130135869dc"
+  },
+  {
+    "title": "Web安全基础",
+    "markdown": "## Web安全基础\n\n### 常见攻击与防御\n1. **XSS（跨站脚本）**：\n   - 攻击：注入恶意脚本。\n   - 防御：转义用户输入，使用CSP。\n\n2. **CSRF（跨站请求伪造）**：\n   - 攻击：诱导用户发送非预期请求。\n   - 防御：使用CSRF Token，检查Origin头。\n\n3. **SQL注入**：\n   - 防御：使用参数化查询。\n\n### HTTPS\n始终使用HTTPS传输敏感数据，防止中间人攻击。",
+    "tags": [
+      "Web安全",
+      "XSS",
+      "CSRF"
+    ],
+    "id": "611acff3-29c0-4b47-bc86-72b01a087ff3"
+  },
+  {
+    "title": "前端工程化",
+    "markdown": "## 前端工程化\n\n前端工程化通过工具和流程提高开发效率和质量。\n\n### 核心环节\n1. **代码管理**：Git版本控制。\n2. **构建工具**：Webpack、Vite打包代码。\n3. **代码规范**：ESLint、Prettier统一风格。\n4. **测试**：单元测试（Jest）、E2E测试（Cypress）。\n5. **CI/CD**：自动化部署流程。\n\n### 模块化开发\n将代码拆分为模块，通过import/export组织。\n\n### 组件化开发\nUI拆分为独立可复用的组件。",
+    "tags": [
+      "工程化",
+      "Webpack",
+      "ESLint"
+    ],
+    "id": "ec8632f5-bf81-4bd5-84b3-d49f80298e3b"
+  },
+  {
+    "title": "Webpack配置基础",
+    "markdown": "## Webpack配置基础\n\nWebpack是现代前端应用的静态模块打包工具。\n\n### 核心概念\n1. **入口（entry）**：构建依赖图的起点。\n2. **输出（output）**：打包结果的位置。\n3. **加载器（loader）**：处理非JS资源。\n4. **插件（plugin）**：扩展功能。\n\n### 基本配置\n```javascript\nmodule.exports = {\n  entry: './src/index.js',\n  output: {\n    filename: 'bundle.js',\n    path: path.resolve(__dirname, 'dist')\n  },\n  module: {\n    rules: [\n      { test: /\\.css$/, use: ['style-loader', 'css-loader'] }\n    ]\n  }\n};\n```\n\n### 常用插件\n- **HtmlWebpackPlugin**：生成HTML文件。\n- **CleanWebpackPlugin**：清理构建目录。",
+    "tags": [
+      "Webpack",
+      "构建工具",
+      "模块打包"
+    ],
+    "id": "91c1e9f0-3a38-44e1-98da-380bc7dce775"
+  },
+  {
+    "title": "前端测试入门",
+    "markdown": "## 前端测试入门\n\n### 测试类型\n1. **单元测试**：测试独立函数或组件（Jest）。\n2. **集成测试**：测试模块间交互。\n3. **E2E测试**：测试完整用户流程（Cypress）。\n\n### Jest示例\n```javascript\ntest('adds 1 + 2 to equal 3', () => {\n  expect(sum(1, 2)).toBe(3);\n});\n```\n\n### React测试\n使用React Testing Library：\n```javascript\ntest('renders greeting', () => {\n  render(<Greeting name=\"Alice\" />);\n  expect(screen.getByText('Hello, Alice')).toBeInTheDocument();\n});\n```\n\n### 测试覆盖率\n通过`--coverage`选项生成覆盖率报告。",
+    "tags": [
+      "测试",
+      "Jest",
+      "Cypress"
+    ],
+    "id": "89b86588-3cc9-483e-9e8d-0987692521dc"
+  },
+  {
+    "title": "Git与团队协作",
+    "markdown": "## Git与团队协作\n\n### 基本工作流\n1. **克隆仓库**：`git clone <url>`。\n2. **创建分支**：`git checkout -b feature-branch`。\n3. **提交更改**：`git commit -m \"message\"`。\n4. **推送分支**：`git push origin feature-branch`。\n5. **创建PR/MR**：发起代码审查。\n\n### 常用命令\n- **状态检查**：`git status`。\n- **暂存更改**：`git add .`。\n- **查看历史**：`git log --oneline`。\n- **合并分支**：`git merge feature-branch`。\n\n### 冲突解决\n当多人修改同一文件时需手动解决冲突，然后`git add`标记为已解决。",
+    "tags": [
+      "Git",
+      "版本控制",
+      "团队协作"
+    ],
+    "id": "dbd3ea91-9529-43eb-bfdc-c97c5c21f6d3"
+  },
+  {
+    "title": "RESTful API设计原则",
+    "markdown": "## RESTful API设计原则\n\nREST是一种架构风格，基于HTTP协议的API设计规范。\n\n### 核心原则\n1. **资源导向**：URL表示资源（如`/users`）。\n2. **HTTP方法**：\n   - GET：获取资源\n   - POST：创建资源\n   - PUT：更新资源\n   - DELETE：删除资源\n3. **无状态**：每个请求包含完整上下文。\n\n### 最佳实践\n1. 使用名词复数形式命名资源。\n2. 返回适当的HTTP状态码。\n3. 支持过滤、排序和分页：\n   `GET /users?page=2&limit=10`\n4. 版本控制：`/v1/users`。",
+    "tags": [
+      "API设计",
+      "RESTful",
+      "HTTP"
+    ],
+    "id": "2adb51d0-6b78-4ea3-b204-d1176f9ade20"
+  },
+  {
+    "title": "GraphQL基础",
+    "markdown": "## GraphQL基础\n\nGraphQL是API查询语言，允许客户端精确请求所需数据。\n\n### 与REST对比\n- **REST**：多个端点，固定数据结构。\n- **GraphQL**：单一端点，灵活查询。\n\n### 基本概念\n1. **Schema**：定义数据类型和操作。\n2. **Query**：获取数据的请求。\n3. **Mutation**：修改数据的操作。\n\n### 示例查询\n```graphql\nquery {\n  user(id: \"1\") {\n    name\n    posts {\n      title\n    }\n  }\n}\n```\n\n### 前端集成\n使用Apollo Client或Relay管理GraphQL数据。",
+    "tags": [
+      "GraphQL",
+      "API",
+      "数据查询"
+    ],
+    "id": "657c9021-c7ba-4e12-86ba-763b8db47374"
+  },
+  {
+    "title": "状态管理：Redux",
+    "markdown": "## 状态管理：Redux\n\nRedux是JavaScript应用的可预测状态容器。\n\n### 三大原则\n1. **单一数据源**：所有状态存储在单一store中。\n2. **状态只读**：只能通过action修改。\n3. **纯函数Reducer**：接收旧状态和action，返回新状态。\n\n### 核心概念\n- **Action**：描述事件的普通对象。\n- **Reducer**：处理action的函数。\n- **Store**：保存状态的对象。\n\n### 工作流程\n1. 触发action：`store.dispatch(action)`。\n2. Reducer处理action，返回新状态。\n3. 订阅者（如React组件）接收更新。",
+    "tags": [
+      "Redux",
+      "状态管理",
+      "React"
+    ],
+    "id": "33f5c66a-43ca-4602-961c-18f0f477f8fd"
+  },
+  {
+    "title": "状态管理：Vuex",
+    "markdown": "## 状态管理：Vuex\n\nVuex是Vue.js的官方状态管理库。\n\n### 核心概念\n1. **State**：单一状态树。\n2. **Getters**：计算属性。\n3. **Mutations**：同步修改状态。\n4. **Actions**：提交mutations，可包含异步操作。\n\n### 示例\n```javascript\nconst store = new Vuex.Store({\n  state: { count: 0 },\n  mutations: {\n    increment(state) { state.count++; }\n  },\n  actions: {\n    incrementAsync({ commit }) {\n      setTimeout(() => commit('increment'), 1000);\n    }\n  }\n});\n```\n\n### 组件中使用\n```javascript\nthis.$store.commit('increment');\nthis.$store.dispatch('incrementAsync');\n```",
+    "tags": [
+      "Vuex",
+      "状态管理",
+      "Vue"
+    ],
+    "id": "d211203b-8153-4bd5-b42e-393afd695f8b"
+  },
+  {
+    "title": "前端监控与错误追踪",
+    "markdown": "## 前端监控与错误追踪\n\n### 监控内容\n1. **性能指标**：FP、FCP、LCP等。\n2. **错误追踪**：JS错误、资源加载失败。\n3. **用户行为**：点击路径、停留时间。\n\n### 实现方式\n1. **window.onerror**：捕获全局错误。\n2. **Performance API**：获取性能数据。\n3. **Sentry/Rollbar**：专业错误监控服务。\n\n### 示例\n```javascript\nwindow.addEventListener('error', (event) => {\n  fetch('/log-error', {\n    method: 'POST',\n    body: JSON.stringify({\n      message: event.message,\n      stack: event.error.stack\n    })\n  });\n});\n```",
+    "tags": [
+      "监控",
+      "错误追踪",
+      "性能"
+    ],
+    "id": "f41ee370-94dd-4174-be46-45f11c272c7d"
+  },
+  {
+    "title": "PWA：渐进式Web应用",
+    "markdown": "## PWA：渐进式Web应用\n\nPWA结合Web和原生应用的优点，支持离线工作。\n\n### 核心技术\n1. **Service Worker**：后台运行的脚本，拦截网络请求。\n2. **Web App Manifest**：定义应用元数据。\n3. **Cache API**：存储资源实现离线访问。\n\n### 基本实现\n1. 注册Service Worker：\n```javascript\nif ('serviceWorker' in navigator) {\n  navigator.serviceWorker.register('/sw.js');\n}\n```\n2. 缓存资源：\n```javascript\nself.addEventListener('install', (event) => {\n  event.waitUntil(\n    caches.open('v1').then((cache) => cache.addAll(['/index.html']))\n  );\n});\n```",
+    "tags": [
+      "PWA",
+      "Service Worker",
+      "离线应用"
+    ],
+    "id": "199c214f-d4db-42db-9590-ca7b8df564db"
+  },
+  {
+    "title": "Web Components",
+    "markdown": "## Web Components\n\nWeb Components是一套浏览器原生组件化技术。\n\n### 核心技术\n1. **Custom Elements**：定义自定义HTML元素。\n2. **Shadow DOM**：封装组件内部DOM和样式。\n3. **HTML Templates**：定义可复用的HTML模板。\n\n### 示例\n```javascript\nclass MyComponent extends HTMLElement {\n  constructor() {\n    super();\n    const shadow = this.attachShadow({ mode: 'open' });\n    shadow.innerHTML = `<p>Hello from Web Component!</p>`;\n  }\n}\n\ncustomElements.define('my-component', MyComponent);\n```\n\n### 使用\n```html\n<my-component></my-component>\n```",
+    "tags": [
+      "Web Components",
+      "组件化",
+      "原生API"
+    ],
+    "id": "141c5ca0-314b-4796-a29f-9331de363698"
+  },
+  {
+    "title": "前端数据结构与算法",
+    "markdown": "## 前端数据结构与算法\n\n### 常用数据结构\n1. **数组**：有序集合，随机访问高效。\n2. **对象/Map**：键值对存储。\n3. **Set**：唯一值集合。\n4. **链表**：React Fiber使用类似结构。\n\n### 常见算法\n1. **排序**：快速排序、归并排序。\n2. **搜索**：二分查找。\n3. **树遍历**：深度优先（DFS）、广度优先（BFS）。\n\n### 应用场景\n1. **虚拟DOM Diff**：高效比较树结构。\n2. **状态管理**：不可变数据更新。\n3. **性能优化**：防抖节流算法。",
+    "tags": [
+      "数据结构",
+      "算法",
+      "前端"
+    ],
+    "id": "0bc4a658-adc9-499a-ad42-b28e11bdb698"
+  },
+  {
+    "title": "设计模式在前端的应用",
+    "markdown": "## 设计模式在前端的应用\n\n### 常用模式\n1. **单例模式**：全局状态管理（如Redux store）。\n2. **观察者模式**：事件系统、React状态更新。\n3. **工厂模式**：创建相似对象（如React.createElement）。\n4. **装饰器模式**：高阶组件（HOC）。\n\n### React中的模式\n1. **容器/展示组件**：分离逻辑与UI。\n2. **Render Props**：共享组件逻辑。\n3. **Hooks**：复用状态逻辑。\n\n### 示例：观察者模式\n```javascript\nclass EventEmitter {\n  constructor() { this.listeners = {}; }\n  on(event, callback) { /* 添加监听器 */ }\n  emit(event, data) { /* 触发事件 */ }\n}\n```",
+    "tags": [
+      "设计模式",
+      "前端架构"
+    ],
+    "id": "e3916adf-46e9-4e95-af06-8b2cb826a878"
+  },
+  {
+    "title": "微前端架构",
+    "markdown": "## 微前端架构\n\n微前端将前端应用拆分为独立可部署的子应用。\n\n### 实现方式\n1. **iframe**：简单隔离但体验差。\n2. **模块联邦**：Webpack 5功能，共享模块。\n3. **single-spa**：框架无关的微前端解决方案。\n4. **qiankun**：基于single-spa的企业级方案。\n\n### 核心挑战\n1. **样式隔离**：避免CSS冲突。\n2. **状态共享**：子应用间通信。\n3. **路由协调**：主应用与子应用路由同步。\n\n### 适用场景\n- 大型企业应用\n- 渐进式迁移\n- 多团队协作",
+    "tags": [
+      "微前端",
+      "架构",
+      "qiankun"
+    ],
+    "id": "79a99137-cfc9-474d-a2e6-018af3b45d03"
+  },
+  {
+    "title": "WebAssembly入门",
+    "markdown": "## WebAssembly入门\n\nWebAssembly（Wasm）是一种低级的类汇编语言，可在浏览器中高效运行。\n\n### 特点\n1. **高性能**：接近原生代码执行速度。\n2. **安全**：沙箱环境执行。\n3. **多语言支持**：C/C++/Rust等编译目标。\n\n### 使用场景\n1. 性能敏感操作（如图像处理）。\n2. 移植现有C++库到Web。\n3. 游戏和模拟器。\n\n### 基本流程\n1. 用Rust等语言编写代码。\n2. 编译为.wasm文件。\n3. JavaScript加载并调用：\n```javascript\nconst wasm = await WebAssembly.instantiateStreaming(fetch('module.wasm'));\nwasm.instance.exports.add(1, 2);\n```",
+    "tags": [
+      "WebAssembly",
+      "性能优化",
+      "Rust"
+    ],
+    "id": "4a26dfcf-f2a1-4998-9b25-115f021319cd"
+  },
+  {
+    "title": "Node.js基础",
+    "markdown": "## Node.js基础\n\nNode.js是基于Chrome V8引擎的JavaScript运行时。\n\n### 核心特性\n1. **非阻塞I/O**：适合高并发场景。\n2. **事件驱动**：通过事件循环处理请求。\n3. **NPM生态**：丰富的第三方模块。\n\n### 基本使用\n```javascript\nconst http = require('http');\n\nhttp.createServer((req, res) => {\n  res.end('Hello Node');\n}).listen(3000);\n```\n\n### 常用模块\n1. **fs**：文件系统操作。\n2. **path**：路径处理。\n3. **http**：创建HTTP服务器。\n\n### 前端应用\n- 构建工具（Webpack、Vite）\n- SSR（Next.js、Nuxt.js）",
+    "tags": [
+      "Node.js",
+      "后端",
+      "JavaScript"
+    ],
+    "id": "ff46004f-0f5f-4083-937d-2373cbcbf360"
+  },
+  {
+    "title": "SSR与CSR对比",
+    "markdown": "## SSR与CSR对比\n\n### SSR（服务器端渲染）\n- **流程**：服务器生成完整HTML发送到客户端。\n- **优点**：更好的SEO，更快的首屏渲染。\n- **缺点**：服务器压力大，交互性较弱。\n- **框架**：Next.js（React）、Nuxt.js（Vue）。\n\n### CSR（客户端渲染）\n- **流程**：服务器发送空HTML，由JavaScript动态渲染。\n- **优点**：交互丰富，服务器压力小。\n- **缺点**：SEO困难，首屏加载慢。\n- **框架**：Create React App、Vue CLI。\n\n### 现代解决方案\n- **混合渲染**：关键页面SSR，其余CSR。\n- **静态生成**：预渲染页面（Gatsby）。",
+    "tags": [
+      "SSR",
+      "CSR",
+      "渲染模式"
+    ],
+    "id": "19ba964b-3e73-473c-825e-0769815d5e2b"
+  },
+  {
+    "title": "前端国际化",
+    "markdown": "## 前端国际化\n\n国际化（i18n）使应用支持多语言和多地区。\n\n### 实现方案\n1. **文本外部化**：将文本提取到单独文件。\n2. **格式化**：处理日期、货币等地区差异。\n\n### React实现\n使用react-i18next库：\n```javascript\nimport { useTranslation } from 'react-i18next';\n\nfunction Component() {\n  const { t } = useTranslation();\n  return <h1>{t('welcome')}</h1>;\n}\n```\n\n### 语言文件\n```json\n{\n  \"en\": { \"welcome\": \"Welcome\" },\n  \"zh\": { \"welcome\": \"欢迎\" }\n}\n```\n\n### 最佳实践\n1. 预留文本扩展空间。\n2. 考虑RTL（从右到左）语言布局。",
+    "tags": [
+      "国际化",
+      "i18n",
+      "多语言"
+    ],
+    "id": "8f1eae4c-c0e5-4e2b-aa30-156946c24f89"
+  },
+  {
+    "title": "前端动画实现",
+    "markdown": "## 前端动画实现\n\n### CSS动画\n1. **Transition**：简单属性过渡。\n```css\n.box { transition: transform 0.3s ease; }\n.box:hover { transform: scale(1.1); }\n```\n2. **Animation**：关键帧动画。\n```css\n@keyframes slide {\n  from { transform: translateX(-100%); }\n  to { transform: translateX(0); }\n}\n```\n\n### JavaScript动画\n1. **requestAnimationFrame**：高性能动画API。\n2. **GSAP**：专业动画库。\n\n### 性能优化\n1. 优先使用transform和opacity。\n2. 避免布局抖动。\n3. 使用will-change提示浏览器。",
+    "tags": [
+      "动画",
+      "CSS",
+      "性能"
+    ],
+    "id": "ed7299e5-b673-4b41-9301-330547440710"
+  },
+  {
+    "title": "Web Workers",
+    "markdown": "## Web Workers\n\nWeb Workers允许在后台线程运行脚本，避免阻塞UI。\n\n### 使用场景\n1. 复杂计算（如图像处理）。\n2. 大数据集排序/过滤。\n3. 高频轮询。\n\n### 基本用法\n主线程：\n```javascript\nconst worker = new Worker('worker.js');\nworker.postMessage({ data: 'input' });\nworker.onmessage = (event) => {\n  console.log(event.data);\n};\n```\n\nworker.js：\n```javascript\nself.onmessage = (event) => {\n  const result = process(event.data);\n  self.postMessage(result);\n};\n```\n\n### 限制\n无法访问DOM或window对象。",
+    "tags": [
+      "Web Workers",
+      "多线程",
+      "性能"
+    ],
+    "id": "1a57237f-3fbf-45e4-a64c-e26e7f90fa16"
+  },
+  {
+    "title": "前端调试技巧",
+    "markdown": "## 前端调试技巧\n\n### 浏览器开发者工具\n1. **元素检查**：修改DOM和CSS。\n2. **控制台**：执行JavaScript，查看日志。\n3. **网络面板**：分析请求。\n4. **性能面板**：识别性能瓶颈。\n\n### 调试技巧\n1. **断点调试**：在源代码中添加debugger语句。\n2. **条件断点**：仅在特定条件下暂停。\n3. **console.table**：表格形式输出对象数组。\n\n### 移动端调试\n1. **远程调试**：Chrome DevTools连接手机。\n2. **模拟器**：Xcode/Android Studio模拟设备。\n3. **代理工具**：Charles/Fiddler抓包。",
+    "tags": [
+      "调试",
+      "开发者工具",
+      "Chrome"
+    ],
+    "id": "390c3968-fcc5-4d73-855d-04bd0fdfe813"
+  },
+  {
+    "title": "前端职业发展路径",
+    "markdown": "## 前端职业发展路径\n\n### 技术方向\n1. **专家路线**：深入特定领域（如性能优化、可视化）。\n2. **全栈开发**：学习后端技术（Node.js、数据库）。\n3. **架构师**：设计复杂前端架构。\n\n### 软技能\n1. **沟通能力**：与设计师、产品经理协作。\n2. **项目管理**：任务拆解和优先级排序。\n3. **技术领导力**：指导团队成员。\n\n### 学习资源\n1. 官方文档（MDN、React Docs）。\n2. 开源项目贡献。\n3. 技术博客和会议（JSConf）。\n\n### 职业阶段\n1. 初级：掌握基础技术栈。\n2. 中级：独立负责项目模块。\n3. 高级：主导技术决策。",
+    "tags": [
+      "职业发展",
+      "前端工程师",
+      "学习路径"
+    ],
+    "id": "d2d23c6b-92e0-4d26-87cf-933b584e74d5"
   }
 ]

@@ -12,6 +12,7 @@
     <script src="/index.js"></script>
 </head>
 <body>
+    <msg id="msg" class="hidden"></msg>
     <error id="error" class="hidden"></error>
     <header>
         <div id="header-container">
@@ -38,12 +39,14 @@
                 window.location.href = `./`;
             }
         }
+
         async function getNote() {
             const res = await safeFetch(`./api/getnote?id=${id}`);
             if (res.ok) {
-                document.getElementById("note-container").innerHTML += createNote(res.data)
+                document.getElementById("note-container").innerHTML += createNote(res.data);
             }
         }
+
         getNote()
     </script>
 </body>

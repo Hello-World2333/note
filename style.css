@@ -18,9 +18,8 @@ null {
     height: max(60px, 9vh);
 }
 
-error {
+error , msg{
     color: #FFFFFF;
-    background-color: #ff3b3b;
     position: fixed;
     top: 10%;
     left: 50%;
@@ -30,11 +29,19 @@ error {
     padding: 1%;
     width: 50%;
     text-align: center;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease;
     z-index: 150;
 }
 
-error.hidden {
+error {
+    background-color: #ff3b3b;
+}
+
+msg {
+    background-color: #016bff;
+}
+
+error.hidden,msg.hidden {
     opacity: 0;
     top:-5%;
     left: 50%;

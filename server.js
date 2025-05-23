@@ -3,6 +3,33 @@ const fs = require('fs');
 const app = express();
 const port = 11451;
 
+fs.readFile('notes.json', 'utf-8', (err, data) => {
+    if (err) {
+        console.error('读取 notes.json 文件失败:', err);
+        return;
+    }
+
+    let notes = JSON.parse(data);
+    let isModified = false;
+
+    notes.forEach(note => {
+        if (!note.id) {
+            note.id = crypto.randomUUID();
+            isModified = true;
+        }
+    });
+
+    if (isModified) {
+        fs.writeFile('notes.json', JSON.stringify(notes, null, 2), 'utf-8', (err) => {
+            if (err) {
+                console.error('写入 notes.json 文件失败:', err);
+            } else {
+                console.log('已为笔记分配 ID 并更新 notes.json 文件');
+            }
+        });
+    }
+});
+
 app.get('/', (req, res) => {
     fs.readFile('index.html', 'utf-8', (err, data) => {
         if (err) {
@@ -19,7 +46,7 @@ app.get('/api/getnote', (req, res) => {
             res.status(500).json(err);
         } else {
             data = JSON.parse(data);
-            res.json(data[req.query.id]);
+            res.json(data[data.findIndex(note => note.id === req.query.id)]);
         }
     });
 })
@@ -32,7 +59,7 @@ app.get('/api/search', (req, res) => {
             const key = req.query.s;
             let notes = JSON.parse(data);
 
-            const results = notes.map((note, index) => {
+            const results = notes.map(note => {
                 const isMatch =
                     note.title.toLowerCase().includes(key.toLowerCase()) ||
                     note.markdown.toLowerCase().includes(key.toLowerCase()) ||
@@ -40,7 +67,7 @@ app.get('/api/search', (req, res) => {
 
                 if (isMatch) {
                     return {
-                        id: index,
+                        id: note.id,
                         title: note.title,
                         markdown: note.markdown,
                         tags: note.tags
@@ -70,6 +97,7 @@ app.get('/api/addnote', (req, res) => {
 
         let notes = JSON.parse(data);
         const newNote = {
+            id: crypto.randomUUID(),
             title,
             markdown,
             tags: tags ? tags.split(',') : [],
@@ -82,14 +110,14 @@ app.get('/api/addnote', (req, res) => {
                 return res.status(500).json({ error: '写入笔记文件失败' });
             }
 
-            res.json({ message: '笔记添加成功', note: notes.length - 1 });
+            res.json({ message: '笔记添加成功', note: newNote.id });
         });
     });
 });
 
 app.get('/api/delete', (req, res) => {
-    const id = parseInt(req.query.id, 10);
-    if (isNaN(id)) {
+    const id = req.query.id;
+    if (!id) {
         return res.status(400).json({ error: '无效的笔记 ID' });
     }
 
@@ -99,11 +127,12 @@ app.get('/api/delete', (req, res) => {
         }
 
         let notes = JSON.parse(data);
-        if (id < 0 || id >= notes.length) {
+        const index = notes.findIndex(note => note.id === id);
+        if (index === -1) {
             return res.status(404).json({ error: '笔记不存在' });
         }
 
-        notes.splice(id, 1);
+        notes.splice(index, 1);
 
         fs.writeFile('notes.json', JSON.stringify(notes, null, 2), 'utf-8', (err) => {
             if (err) {
