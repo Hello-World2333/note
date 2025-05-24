@@ -15,7 +15,7 @@ main {
 
 null {
     width: 100%;
-    height: max(60px, 9vh);
+    height: min(90px, 9vh);
 }
 
 error,
