@@ -69,6 +69,7 @@ load {
     font-size: 200%;
     transition: all 0.5s ease;
     opacity: 1;
+    pointer-events: none;
 }
 
 @keyframes loading {
