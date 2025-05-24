@@ -15,6 +15,16 @@ const UI = {
             msgelm.classList.add("hidden");
         }, 3000);
 
+    },
+    startLoad(text) {
+        const loadelm = document.getElementById("load");
+        loadelm.classList.remove("hidden");
+        const loadspan = document.getElementById("load-span");
+        loadspan.innerHTML = text;
+    },
+    endLoad() {
+        const loadelm = document.getElementById("load");
+        loadelm.classList.add("hidden");
     }
 }
 async function safeFetch(url, options) {

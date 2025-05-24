@@ -14,6 +14,10 @@
 </head>
 
 <body>
+    <load id="load" class="hidden">
+        <img src="loading.svg">
+        <span id="load-span"></span>
+    </load>
     <msg id="msg" class="hidden"></msg>
     <error id="error" class="hidden"></error>
     <header>
@@ -34,7 +38,9 @@
     </main>
     <script>
         async function getNotes() {
+            UI.startLoad("正在获取笔记列表")
             const res = await safeFetch("./notes.json");
+            UI.endLoad()
             if (res.ok) {
                 for (let i = 0; i < res.data.length; i++) {
                     document.getElementById("notes-container").innerHTML += createNoteCard(res.data[i], i)

@@ -18,7 +18,8 @@ null {
     height: max(60px, 9vh);
 }
 
-error , msg{
+error,
+msg {
     color: #FFFFFF;
     position: fixed;
     top: 10%;
@@ -41,9 +42,52 @@ msg {
     background-color: #016bff;
 }
 
-error.hidden,msg.hidden {
+error.hidden,
+msg.hidden {
     opacity: 0;
-    top:-5%;
+    top: -5%;
     left: 50%;
     transform: translateX(-50%);
+}
+
+load {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    background-color: #202020c3;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 2%;
+    font-size: 200%;
+    transition: all 0.5s ease;
+    opacity: 1;
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+load img {
+    width: 10vw;
+    animation: loading 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+
+load.hidden {
+    opacity: 0;
 }

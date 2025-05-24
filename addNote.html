@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="/editor.css">
 </head>
 <body>
+    <load id="load" class="hidden">
+        <img src="loading.svg">
+        <span id="load-span"></span>
+    </load>
     <error id="error" class="hidden"></error>
     <msg id="msg" class="hidden"></msg>
     <header>
@@ -45,7 +49,13 @@
             const title = encodeURIComponent(titleInput.value);
             const tags = encodeURIComponent(tagsInput.value);
             const content = encodeURIComponent(contentTextarea.value);
+            if (!title || !content || !tags) {
+                UI.error("标题 内容 标签不能为空");
+                return;
+            }
+            UI.startLoad("正在上传笔记")
             const res = await safeFetch(`./api/addnote?title=${title}&tags=${tags}&markdown=${content}`);
+            UI.endLoad()
             if (res.ok) {
                 window.location.href = `./note?id=${res.data.note}`;
             } else {
