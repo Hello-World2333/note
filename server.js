@@ -112,6 +112,9 @@ app.post('/api/addnote', async (req, res) => {
                 return res.status(500).json({ error: '写入笔记文件失败' });
             }
 
+            // 记录日志
+            logOperation('新增笔记', newNote.id);
+
             res.json({ message: '笔记添加成功', note: newNote.id });
         });
     });
@@ -154,6 +157,9 @@ app.post('/api/updatenote', async (req, res) => {
                 return res.status(500).json({ error: '写入笔记文件失败' });
             }
 
+            // 记录日志
+            logOperation('更新笔记', id);
+
             res.json({ message: '笔记更新成功', note: updatedNote });
         });
     });
@@ -182,6 +188,9 @@ app.get('/api/delete', (req, res) => {
             if (err) {
                 return res.status(500).json({ error: '写入笔记文件失败' });
             }
+
+            // 记录日志
+            logOperation('删除笔记', id);
 
             res.json({ message: '笔记删除成功' });
         });
@@ -244,3 +253,15 @@ app.listen(port, () => {
     console.log('聊天测试服务已启动');
     console.log(`服务器已在${port}号端口启动访问地址: http://localhost:${port}`);
 });
+
+function logOperation(operation, uuid) {
+    const now = new Date();
+    const logFileName = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}.log`;
+    const logMessage = `[${now.toISOString()}] ${operation} - UUID: ${uuid}\n`;
+
+    fs.appendFile(logFileName, logMessage, (err) => {
+        if (err) {
+            console.error('写入日志文件失败:', err);
+        }
+    });
+}
