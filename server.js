@@ -30,6 +30,8 @@ fs.readFile('notes.json', 'utf-8', (err, data) => {
     }
 });
 
+app.use(express.json());
+
 app.get('/', (req, res) => {
     fs.readFile('index.html', 'utf-8', (err, data) => {
         if (err) {
@@ -51,12 +53,12 @@ app.get('/api/getnote', (req, res) => {
     });
 })
 
-app.post('/api/search', (req, res) => {
+app.post('/api/search', async (req, res) => {
+    const key = req.body.s;
     fs.readFile('notes.json', 'utf-8', (err, data) => {
         if (err) {
             res.status(500).json(err);
         } else {
-            const key = req.query.s;
             let notes = JSON.parse(data);
 
             const results = notes.map(note => {
@@ -80,8 +82,8 @@ app.post('/api/search', (req, res) => {
     });
 })
 
-app.get('/api/addnote', (req, res) => {
-    let { title, markdown, tags } = req.query;
+app.post('/api/addnote', async (req, res) => {
+    let { title, markdown, tags } = req.body;
     title = decodeURIComponent(title);
     markdown = decodeURIComponent(markdown);
     tags = decodeURIComponent(tags);
@@ -115,8 +117,8 @@ app.get('/api/addnote', (req, res) => {
     });
 });
 
-app.get('/api/updatenote', (req, res) => { 
-    const { id, title, markdown, tags } = req.query;
+app.post('/api/updatenote', async (req, res) => {
+    const { id, title, markdown, tags } = req.body;
 
     if (!id) {
         return res.status(400).json({ error: '缺少必要参数：笔记 ID' });
