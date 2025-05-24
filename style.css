@@ -81,6 +81,7 @@ load {
 }
 
 load img {
+    filter: invert(1);
     width: 10vw;
     animation: loading 2s;
     animation-iteration-count: infinite;

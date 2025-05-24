@@ -115,6 +115,48 @@ app.get('/api/addnote', (req, res) => {
     });
 });
 
+app.get('/api/updatenote', (req, res) => { 
+    const { id, title, markdown, tags } = req.query;
+
+    if (!id) {
+        return res.status(400).json({ error: '缺少必要参数：笔记 ID' });
+    }
+
+    if (!title || !markdown) {
+        return res.status(400).json({ error: '请提供更新内容' });
+    }
+
+    fs.readFile('notes.json', 'utf-8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: '读取笔记文件失败' });
+        }
+
+        let notes = JSON.parse(data);
+        const index = notes.findIndex(note => note.id === id);
+
+        if (index === -1) {
+            return res.status(404).json({ error: '笔记不存在' });
+        }
+
+        const updatedNote = {
+            ...notes[index],
+            ...(title && { title: decodeURIComponent(title) }),
+            ...(markdown && { markdown: decodeURIComponent(markdown) }),
+            ...(tags && { tags: decodeURIComponent(tags).split(',') })
+        };
+
+        notes[index] = updatedNote;
+
+        fs.writeFile('notes.json', JSON.stringify(notes, null, 2), 'utf-8', (err) => {
+            if (err) {
+                return res.status(500).json({ error: '写入笔记文件失败' });
+            }
+
+            res.json({ message: '笔记更新成功', note: updatedNote });
+        });
+    });
+});
+
 app.get('/api/delete', (req, res) => {
     const id = req.query.id;
     if (!id) {

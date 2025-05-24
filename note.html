@@ -27,6 +27,7 @@
                     <img src="/search.svg" id="search-btn" class="btn" onclick="tosearch()">
                 </div>
                 <img src="/delete.svg" id="delete-btn" class="btn" onclick="deleteNote()">
+                <img src="/write.svg" id="search-btn" class="btn" onclick="toWrite()">
                 <img src="/add.svg" id="add-btn" class="btn" onclick="toAddNote()">
             </div>
         </div>
@@ -44,6 +45,10 @@
             if (res.ok) {
                 window.location.href = `./`;
             }
+        }
+
+        function toWrite() {
+            window.location.href = `./updatenote?id=${id}`;
         }
 
         async function getNote() {

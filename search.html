@@ -37,13 +37,21 @@
     <script>
         const s=new URLSearchParams(window.location.search).get("s");
         async function search() {
-            document.getElementById("search").value=s;
-            UI.startLoad("正在搜索")
-            const res = await safeFetch(`./api/search?s=${s}`);
-            UI.endLoad()
+            document.getElementById("search").value = s;
+            UI.startLoad("正在搜索");
+
+            const res = await safeFetch('./api/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "s" : s })
+            });
+
+            UI.endLoad();
             if (res.ok) {
                 res.data.forEach(note => {
-                    document.getElementById("notes-container").innerHTML += createNoteCard(note, note.id)
+                    document.getElementById("notes-container").innerHTML += createNoteCard(note, note.id);
                 });
             }
         }

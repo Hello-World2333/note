@@ -3,6 +3,7 @@ const UI = {
         const errelm = document.getElementById("error");
         errelm.classList.remove("hidden");
         errelm.innerHTML = err;
+        console.error(err);
         setTimeout(() => {
             errelm.classList.add("hidden");
         }, 3000);
@@ -27,9 +28,12 @@ const UI = {
         loadelm.classList.add("hidden");
     }
 }
-async function safeFetch(url, options) {
+async function safeFetch(url, options = {}) {
     try {
-        const res = await fetch(url, options);
+        const defaultOptions = { method: 'GET' };
+        const finalOptions = { ...defaultOptions, ...options };
+
+        const res = await fetch(url, finalOptions);
         if (res.ok) {
             const data = await res.json();
             return { ok: true, data: data };
