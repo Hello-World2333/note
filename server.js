@@ -51,7 +51,7 @@ app.get('/api/getnote', (req, res) => {
     });
 })
 
-app.get('/api/search', (req, res) => {
+app.post('/api/search', (req, res) => {
     fs.readFile('notes.json', 'utf-8', (err, data) => {
         if (err) {
             res.status(500).json(err);
