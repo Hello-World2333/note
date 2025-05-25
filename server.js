@@ -272,10 +272,10 @@ app.listen(port, () => {
 
 function logOperation(operation, uuid) {
     const now = new Date();
-    const logFileName = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}.log`;
+    const logFile = `./logs/${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}.log`;
     const logMessage = `[${now.toISOString()}] ${operation} - UUID: ${uuid}\n`;
 
-    fs.appendFile(logFileName, logMessage, (err) => {
+    fs.appendFile(logFile, logMessage, (err) => {
         if (err) {
             console.error('写入日志文件失败:', err);
         }
