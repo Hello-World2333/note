@@ -82,6 +82,9 @@ function createNoteCard(note) {
     });
     return `<notecard onclick="openNote('${note.id}')">
         <h1>${note.title}</h1>
+        <views>
+            <img src="/view.svg">${note.views}
+        </views>
         <tags>${tagText}</tags>
         <hr>
         ${marked.parse(note.markdown)}
@@ -95,6 +98,9 @@ function createNote(note) {
     });
     return `<note id="note">
         <h1>${note.title}</h1>
+        <views>
+            <img src="/view.svg">${note.views}
+        </views>
         <tags>${tagText}</tags>
         <hr>
         ${marked.parse(note.markdown)}

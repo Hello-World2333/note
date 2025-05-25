@@ -17,6 +17,10 @@ fs.readFile('notes.json', 'utf-8', (err, data) => {
             note.id = crypto.randomUUID();
             isModified = true;
         }
+        if (note.views === undefined) {
+            note.views = 0;
+            isModified = true;
+        }
     });
 
     if (isModified) {
@@ -47,8 +51,22 @@ app.get('/api/getnote', (req, res) => {
         if (err) {
             res.status(500).json(err);
         } else {
-            data = JSON.parse(data);
-            res.json(data[data.findIndex(note => note.id === req.query.id)]);
+            let notes = JSON.parse(data);
+            const index = notes.findIndex(note => note.id === req.query.id);
+
+            if (index === -1) {
+                return res.status(404).json({ error: '笔记不存在' });
+            }
+
+            notes[index].views += 1;
+
+            fs.writeFile('notes.json', JSON.stringify(notes, null, 2), 'utf-8', (err) => {
+                if (err) {
+                    console.error('更新笔记阅读量失败:', err);
+                }
+            });
+
+            res.json(notes[index]);
         }
     });
 })
@@ -72,7 +90,8 @@ app.post('/api/search', async (req, res) => {
                         id: note.id,
                         title: note.title,
                         markdown: note.markdown,
-                        tags: note.tags
+                        tags: note.tags,
+                        views: note.views
                     };
                 }
             }).filter(note => note !== undefined);
@@ -112,7 +131,6 @@ app.post('/api/addnote', async (req, res) => {
                 return res.status(500).json({ error: '写入笔记文件失败' });
             }
 
-            // 记录日志
             logOperation('新增笔记', newNote.id);
 
             res.json({ message: '笔记添加成功', note: newNote.id });
@@ -157,7 +175,6 @@ app.post('/api/updatenote', async (req, res) => {
                 return res.status(500).json({ error: '写入笔记文件失败' });
             }
 
-            // 记录日志
             logOperation('更新笔记', id);
 
             res.json({ message: '笔记更新成功', note: updatedNote });
@@ -189,7 +206,6 @@ app.get('/api/delete', (req, res) => {
                 return res.status(500).json({ error: '写入笔记文件失败' });
             }
 
-            // 记录日志
             logOperation('删除笔记', id);
 
             res.json({ message: '笔记删除成功' });

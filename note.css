@@ -41,6 +41,24 @@ notecard {
     opacity: 0;
 }
 
+note h1,notecard h1 {
+    margin-bottom: 0;
+}
+
+views {
+    color: #ffffff;
+    font-size: 2vh;
+    height: 2.5vh;
+    width: auto;
+    display: flex;
+    align-items: center;
+}
+
+views img {
+    height: 100%;
+    margin-right: 0.2vw;
+}
+
 .animate-fade-in {
     top: 0;
     opacity: 1;

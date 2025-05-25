@@ -48,17 +48,17 @@
                 for (let i = 0; i < notes.length; i++) {
                     setTimeout(() => {
                         notes[i].classList.add("animate-fade-in");
-                        if(i % 6 === 0) {
-                            notes[Math.min(i+6,notes.length-1)].scrollIntoView({ behavior: "smooth", block: "end" });
+                        if(i % 12 === 0) {
+                            notes[Math.min(i+12,notes.length-1)].scrollIntoView({ behavior: "smooth", block: "end" });
                         }
                         setTimeout(() => {
                             notes[i].style.transition = "all 0.2s ease"
                         }, 500);
-                    }, i * 100);
+                    }, i * 50);
                 }
                 setTimeout(() => {
                     UI.endLoad()
-                }, res.data.length * 100);
+                }, res.data.length * 50);
             }
         }
         getNotes()
