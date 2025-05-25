@@ -10,6 +10,12 @@
     <link href="/logo.png" rel="icon">
     <script src="/markdown.js"></script>
     <script src="/index.js"></script>
+    <style>
+        note * {
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+    </style>
 </head>
 <body>
     <load id="load" class="hidden">
@@ -38,6 +44,7 @@
     </main>
     <script>
         const id=new URLSearchParams(window.location.search).get("id");
+
         async function deleteNote() {
             UI.startLoad("正在删除")
             const res = await safeFetch(`./api/delete?id=${id}`);
@@ -57,7 +64,25 @@
             if (res.ok) {
                 UI.startLoad("正在渲染markdown")
                 document.getElementById("note-container").innerHTML += createNote(res.data);
-                UI.endLoad()
+                const note = document.getElementById("note");
+                const children = note.children;
+                function showElm(elm) {
+                    elm.classList.add("animate-fade-in");
+                    for(let i = 0; i < elm.children.length; i++) {
+                        showElm(elm.children[i]);
+                    }
+                }
+                for(let i = 0; i < children.length; i++) {
+                    setTimeout(() => {
+                        showElm(children[i]);
+                        if(i % 10 === 0) {
+                            children[Math.min(i+10,children.length-1)].scrollIntoView({ behavior: "smooth", block: "end" });
+                        }
+                    }, i * 50);
+                }
+                setTimeout(() => {
+                    UI.endLoad()
+                }, children.length * 50);
             }
         }
 

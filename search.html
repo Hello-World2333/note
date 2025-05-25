@@ -53,6 +53,12 @@
                 res.data.forEach(note => {
                     document.getElementById("notes-container").innerHTML += createNoteCard(note, note.id);
                 });
+                const notes = document.querySelectorAll("notecard");
+                for (let i = 0; i < notes.length; i++) {
+                    setTimeout(() => {
+                        notes[i].classList.add("animate-fade-in");
+                    }, i * 100);
+                }
             }
         }
         search()

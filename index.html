@@ -39,12 +39,26 @@
     <script>
         async function getNotes() {
             UI.startLoad("正在获取笔记列表")
-            const res = await safeFetch("./notes.json");
-            UI.endLoad()
+            const res = await safeFetch("./notes.json"); 
             if (res.ok) {
                 for (let i = 0; i < res.data.length; i++) {
                     document.getElementById("notes-container").innerHTML += createNoteCard(res.data[i], i)
                 }
+                const notes = document.querySelectorAll("notecard");
+                for (let i = 0; i < notes.length; i++) {
+                    setTimeout(() => {
+                        notes[i].classList.add("animate-fade-in");
+                        if(i % 6 === 0) {
+                            notes[Math.min(i+6,notes.length-1)].scrollIntoView({ behavior: "smooth", block: "end" });
+                        }
+                        setTimeout(() => {
+                            notes[i].style.transition = "all 0.2s ease"
+                        }, 500);
+                    }, i * 100);
+                }
+                setTimeout(() => {
+                    UI.endLoad()
+                }, res.data.length * 100);
             }
         }
         getNotes()

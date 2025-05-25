@@ -93,7 +93,7 @@ function createNote(note) {
     note.tags.forEach(tag => {
         tagText += `<tag onclick="tosearch('${tag}')">${tag}</tag>`;
     });
-    return `<note>
+    return `<note id="note">
         <h1>${note.title}</h1>
         <tags>${tagText}</tags>
         <hr>

@@ -250,7 +250,7 @@ app.use((req, res) => {
 });
 
 app.listen(port, () => {
-    console.log('聊天测试服务已启动');
+    console.log('笔记服务器启动成功');
     console.log(`服务器已在${port}号端口启动访问地址: http://localhost:${port}`);
 });
 
