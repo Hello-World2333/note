@@ -13,7 +13,6 @@
     <style>
         note * {
             opacity: 0;
-            transition: all 0.5s ease;
         }
     </style>
 </head>
@@ -62,27 +61,27 @@
             UI.startLoad("正在获取笔记")
             const res = await safeFetch(`./api/getnote?id=${id}`);
             if (res.ok) {
-                UI.startLoad("正在渲染markdown")
+                UI.startLoad("正在急速渲染markdown")
                 document.getElementById("note-container").innerHTML += createNote(res.data);
                 const note = document.getElementById("note");
                 const children = note.children;
-                function showElm(elm) {
+                function shownote(elm) {
                     elm.classList.add("animate-fade-in");
                     for(let i = 0; i < elm.children.length; i++) {
-                        showElm(elm.children[i]);
+                        shownote(elm.children[i]);
                     }
                 }
                 for(let i = 0; i < children.length; i++) {
                     setTimeout(() => {
-                        showElm(children[i]);
+                        shownote(children[i]);
                         if(i % 10 === 0) {
                             children[Math.min(i+10,children.length-1)].scrollIntoView({ behavior: "smooth", block: "end" });
                         }
-                    }, i * 50);
+                    }, i * 100);
                 }
                 setTimeout(() => {
                     UI.endLoad()
-                }, children.length * 50);
+                }, children.length * 100);
             }
         }
 

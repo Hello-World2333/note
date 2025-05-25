@@ -31,13 +31,11 @@ notecard {
     position: relative;
     width: auto;
     min-width: 20vw;
-    height: 30vh;
+    height: auto;
     top: 5vh;
     left: 0;
     overflow: hidden;
     box-shadow: #999999 5px 5px 0px;
-    transition: all 0.5s ease;
-    cursor: pointer;
     opacity: 0;
 }
 
@@ -86,10 +84,5 @@ tag {
     background-color: #383838;
     border-radius: 10px;
     padding: 0 1%;
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
-
-tag:hover {
-    background-color: #3f3f3f;
+    border: #383838 5px solid;
 }

@@ -9,7 +9,7 @@
       "JavaScript"
     ],
     "id": "80cc513f-7716-4e97-8e4d-428e3da91cb4",
-    "views": 0
+    "views": 2
   },
   {
     "title": "异步编程与Promise",
@@ -21,7 +21,7 @@
       "async/await"
     ],
     "id": "124cd8e7-fcdd-471a-b49b-7ff0dc79b22f",
-    "views": 0
+    "views": 1
   },
   {
     "title": "HTTP状态码详解",
@@ -44,7 +44,7 @@
       "URI"
     ],
     "id": "f9905670-da84-446c-a330-94bd98a404cb",
-    "views": 0
+    "views": 1
   },
   {
     "title": "Fetch API的使用方法",
@@ -111,7 +111,7 @@
       "ES6"
     ],
     "id": "a6f44b64-7d55-4708-ab9c-3ba6b14c3a91",
-    "views": 0
+    "views": 1
   },
   {
     "title": "CSS Flexbox布局详解",
@@ -155,7 +155,7 @@
       "作用域"
     ],
     "id": "3fc589ff-4e97-4847-bc87-2eee138e6ce2",
-    "views": 0
+    "views": 1
   },
   {
     "title": "this关键字的绑定规则",
@@ -199,7 +199,7 @@
       "新特性"
     ],
     "id": "332ee393-f06c-445a-ab66-b17b708390ab",
-    "views": 0
+    "views": 1
   },
   {
     "title": "TypeScript基础",
@@ -352,7 +352,7 @@
       "性能"
     ],
     "id": "f41ee370-94dd-4174-be46-45f11c272c7d",
-    "views": 0
+    "views": 1
   },
   {
     "title": "PWA: 渐进式Web应用",
@@ -428,7 +428,7 @@
       "JavaScript"
     ],
     "id": "ff46004f-0f5f-4083-937d-2373cbcbf360",
-    "views": 0
+    "views": 1
   },
   {
     "title": "SSR与CSR对比",
@@ -439,7 +439,7 @@
       "渲染模式"
     ],
     "id": "19ba964b-3e73-473c-825e-0769815d5e2b",
-    "views": 0
+    "views": 1
   },
   {
     "title": "前端国际化",
@@ -509,6 +509,6 @@
       " Web Development",
       " Networking"
     ],
-    "views": 2
+    "views": 18
   }
 ]

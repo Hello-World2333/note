@@ -4,7 +4,7 @@ header {
     position: fixed;
     top: 0;
     width: 100vw;
-    height: min(80px, 8vh);
+    height: 50px;
     z-index: 100;
 }
 
@@ -19,13 +19,6 @@ header {
 
 #logo {
     height: 80%;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    filter: invert(0.1);
-}
-
-#logo:hover {
-    filter: invert(0);
 }
 
 #header-right-container {
@@ -57,11 +50,5 @@ header {
 .btn {
     margin-left: 1%;
     height: 80%;
-    transition: all 0.2s ease;
     filter: invert(0.8);
-    cursor: pointer;
-}
-
-.btn:hover {
-    filter: invert(1);
 }

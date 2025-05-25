@@ -1,63 +1,61 @@
 const UI = {
-    error(err) {
-        const errelm = document.getElementById("error");
-        errelm.classList.remove("hidden");
-        errelm.innerHTML = err;
-        console.error(err);
+    error(a) {
+        const b = document.getElementById("error");
+        b.classList.remove("hidden");
+        b.innerHTML = a;
+        console.error(a);
         setTimeout(() => {
-            errelm.classList.add("hidden");
+            b.classList.add("hidden");
         }, 3000);
     },
-    msg(text) {
-        const msgelm = document.getElementById("msg");
-        msgelm.classList.remove("hidden");
-        msgelm.innerHTML = text;
+    msg(c) {
+        const d = document.getElementById("msg");
+        d.classList.remove("hidden");
+        d.innerHTML = c;
         setTimeout(() => {
-            msgelm.classList.add("hidden");
+            d.classList.add("hidden");
         }, 3000);
-
     },
-    startLoad(text) {
-        const loadelm = document.getElementById("load");
-        loadelm.classList.remove("hidden");
-        const loadspan = document.getElementById("load-span");
-        loadspan.innerHTML = text;
+    startLoad(e) {
+        const f = document.getElementById("load");
+        f.classList.remove("hidden");
+        const g = document.getElementById("load-span");
+        g.innerHTML = e;
     },
     endLoad() {
-        const loadelm = document.getElementById("load");
-        loadelm.classList.add("hidden");
+        const h = document.getElementById("load");
+        h.classList.add("hidden");
     }
-}
-async function safeFetch(url, options = {}) {
+};
+async function safeFetch(i, j = {}) {
     try {
-        const defaultOptions = { method: 'GET' };
-        const finalOptions = { ...defaultOptions, ...options };
+        const k = { method: 'GET' };
+        const l = { ...k, ...j };
 
-        const res = await fetch(url, finalOptions);
-        if (res.ok) {
-            const data = await res.json();
-            return { ok: true, data: data };
+        const m = await fetch(i, l);
+        if (m.ok) {
+            const n = await m.json();
+            return { ok: true, data: n };
         } else {
-            const errorMessage = `请求失败 状态码: ${res.status}`;
-            UI.error(errorMessage);
-            return { ok: false, msg: errorMessage };
+            const o = `请求失败 状态码: ${m.status}`;
+            UI.error(o);
+            return { ok: false, msg: o };
         }
-    } catch (err) {
-        UI.error(err.message || "未知错误");
-        return { ok: false, msg: err.message || "未知错误" };
+    } catch (p) {
+        UI.error(p.message || "未知错误");
+        return { ok: false, msg: p.message || "未知错误" };
     }
 }
 
-async function tosearch(s = null) {
-    let key;
-    if(s) {
-        key = s;
+async function tosearch(q = null) {
+    let r;
+    if (q) {
+        r = q;
+    } else {
+        r = document.getElementById("search").value;
     }
-    else {
-        key = document.getElementById("search").value;
-    }
-    if(key) {
-        location.href = `/search?s=${key}`;
+    if (r) {
+        location.href = `/search?s=${r}`;
     }
 }
 
@@ -65,8 +63,8 @@ function goHome() {
     window.location.href = "/";
 }
 
-function handleKeyPress(event) {
-    if (event.key === 'Enter') {
+function handleKeyPress(s) {
+    if (s.key === 'Enter') {
         tosearch();
     }
 }
@@ -75,52 +73,52 @@ function toAddNote() {
     window.location.href = "/addNote";
 }
 
-function createNoteCard(note) {
-    let tagText = '';
-    note.tags.forEach(tag => {
-        tagText += `<tag onclick="tosearch('${tag}')">${tag}</tag>`;
+function createNoteCard(t) {
+    let u = '';
+    t.tags.forEach(v => {
+        u += `<tag onclick="tosearch('${v}')">${v}</tag>`;
     });
-    return `<notecard onclick="openNote('${note.id}')">
-        <h1>${note.title}</h1>
+    return `<notecard onclick="openNote('${t.id}')">
+        <h1>${t.title}</h1>
         <views>
-            <img src="/view.svg">${note.views}
+            <img src="/view.svg">${t.views}
         </views>
-        <tags>${tagText}</tags>
+        <tags>${u}</tags>
         <hr>
-        ${marked.parse(note.markdown)}
+        ${marked.parse(t.markdown.slice(0,100)+"...")}
     </notecard>`;
 }
 
-function createNote(note) {
-    let tagText = '';
-    note.tags.forEach(tag => {
-        tagText += `<tag onclick="tosearch('${tag}')">${tag}</tag>`;
+function createNote(w) {
+    let x = '';
+    w.tags.forEach(y => {
+        x += `<tag onclick="tosearch('${y}')">${y}</tag>`;
     });
     return `<note id="note">
-        <h1>${note.title}</h1>
+        <h1>${w.title}</h1>
         <views>
-            <img src="/view.svg">${note.views}
+            <img src="/view.svg">${w.views}
         </views>
-        <tags>${tagText}</tags>
+        <tags>${x}</tags>
         <hr>
-        ${marked.parse(note.markdown)}
+        ${marked.parse(w.markdown)}
     </note>`;
 }
 
-function openNote(id) {
-    location.href = `./note?id=${id}`;
+function openNote(z) {
+    location.href = `./note?id=${z}`;
 }
 
-document.addEventListener('click', (event) => {
-    if (event.target.matches('pre')) {
-        const codeContent = event.target.textContent.trim();
+document.addEventListener('click', (A) => {
+    if (A.target.matches('pre')) {
+        const B = A.target.textContent.trim();
 
-        const tempInput = document.createElement('textarea');
-        tempInput.value = codeContent;
-        document.body.appendChild(tempInput);
-        tempInput.select();
+        const C = document.createElement('textarea');
+        C.value = B;
+        document.body.appendChild(C);
+        C.select();
         document.execCommand('copy');
-        document.body.removeChild(tempInput);
+        document.body.removeChild(C);
         UI.msg("复制成功")
     }
 });
